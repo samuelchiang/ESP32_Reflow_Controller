@@ -9,7 +9,7 @@ Use ESP32 to control heater for reflow
 - ESP32 output PWM to SSR for heater control.
 - ESP32 use PID control.
 - WiFi Button: Short pressed for switch WiFi on/off. Long pressed for reset WiFi AP.
-- If WiFi is on, ESP32 can publish temperature and PWM Duty Ratio by MQTT. 
+- If WiFi is on, ESP32 can publish temperature and PWM Duty Ratio by MQTT. You can also send PID control command to ESP32.
 
 ## Result
 Based on [Wikipedia Reflow](https://en.wikipedia.org/wiki/Reflow_soldering), I create a temperature curve as the following picture.
