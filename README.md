@@ -24,7 +24,7 @@ Please refer to
 [https://oshwlab.com/sychiang0318/reflow-hot-plate_copy](https://oshwlab.com/sychiang0318/reflow-hot-plate_copy)
 
 ## Open software
-[ESP32 Reflow Controller](Reflow_Controller.ino)
+[ESP32 Reflow Controller](src/Reflow_Controller.ino)
 
 ## Node-RED flow control
 You can control the ESP32 by Node-RED flow through MQTT.
