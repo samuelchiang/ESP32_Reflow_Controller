@@ -22,6 +22,7 @@ Based on [Wikipedia Reflow](https://en.wikipedia.org/wiki/Reflow_soldering), I c
 ## PCB Design
 Please refer to
 [https://oshwlab.com/sychiang0318/reflow-hot-plate_copy](https://oshwlab.com/sychiang0318/reflow-hot-plate_copy)
+![pcb](images/PCB.png)
 
 ## Open software
 [ESP32 Reflow Controller](src/Reflow_Controller.ino)
