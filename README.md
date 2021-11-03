@@ -25,3 +25,8 @@ Please refer to
 
 ## Open software
 [ESP32 Reflow Controller](Reflow_Controller.ino)
+
+## Node-RED flow control
+You can control the ESP32 by Node-RED flow through MQTT.
+![node-red](images/nodered_reflow_screenshot.png)
+[Node-RED flow file](Node-RED_flow/nodered_reflow_flows.json)
