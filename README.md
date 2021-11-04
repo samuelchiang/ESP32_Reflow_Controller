@@ -27,6 +27,23 @@ Please refer to
 ## Open software
 [ESP32 Reflow Controller](src/Reflow_Controller.ino)
 
+## MQTT Data format
+- Subscribe
+  	- Topic
+  		- `cmd/<DeviceId>/`
+  	- Payload
+		- Set PID Control Command
+	  		- Example `{ "command": "setPIDControl", "params": { "temp": 120, "kp":2.5, "ki":0.06, "kd":0.8 }}`
+		- Stop PID Control Command
+	  		- Example `/{ "command": "stopPIDControl"}`
+	
+- Publish
+	- Topic
+		- `data/<DeviceId>/`
+	- Payload
+		- `{"Heater":<percent>,"Temp":<temperature>, "pid_p":<pid_p>,"pid_i":<pid_i>, "pid_d":<pid_d>}`
+
+
 ## Node-RED flow control
 You can control the ESP32 by Node-RED flow through MQTT.
 ![node-red](images/nodered_reflow_screenshot.png)
