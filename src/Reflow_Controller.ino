@@ -519,17 +519,17 @@ const int resolution = 8;
 float refresh_rate = 200;                   //PID loop time in ms
 float setpointDiff = 100;   //In degrees C
 
-int soak_point = 150;
-float soak_kp = 1.5;
-float soak_ki = 0.06;
-float soak_kd = 0.8;
-int soak_duration=100000;
+int SOAK_POINT = 150;
+float SOAK_KP = 1.5;
+float SOAK_KI = 0.06;
+float SOAK_KD = 0.8;
+int SOAK_DURATION=100000; //100s
 
-int peak_point = 217;
-float peak_kp = 2;
-float peak_ki = 0.6;
-float peak_kd = 8;
-int peak_duration=75000;
+int PEAK_POINT = 217;
+float PEAK_KP = 2;
+float PEAK_KI = 0.6;
+float PEAK_KD = 8;
+int PEAK_DURATION=75000; //75s
 
 
 class Heater {
@@ -562,6 +562,7 @@ class Heater {
         float kd;
         float setpoint;       //In degrees C 
         float pid_p, pid_i, pid_d;
+        int   soak_point;       //In degrees C 
         int   peak_point;       //In degrees C 
         int   state_reflow;
 };
@@ -732,8 +733,9 @@ void Heater::ramp_up(void){
 void Heater::start_reflow(){
     Serial.println("state_reflow=1");
     state_reflow=1;
-    set_pid_control(soak_point, soak_kp, soak_ki, soak_kd);
-    this->peak_point=peak_point;
+    soak_point=SOAK_POINT;
+    peak_point=PEAK_POINT;
+    set_pid_control(SOAK_POINT, SOAK_KP, SOAK_KI, SOAK_KD);
 }
 
 void Heater::loop_reflow(){
@@ -749,14 +751,14 @@ void Heater::loop_reflow(){
     real_temp = get_temp();
     
     if(state_reflow==1 && real_temp>soak_point){
-        Serial.println("state_reflow=2");
+        Serial.printf("state_reflow=2 temp %f > soak_point %f\n", real_temp, soak_point);
         state_reflow=2;
         //delay 100s then set to peak point
         soak_start_time = millis();
     }
 
     if(state_reflow==3 && real_temp>peak_point){
-        Serial.println("state_reflow=4");
+        Serial.printf("state_reflow=4 temp %f > peak_point %f\n", real_temp, peak_point);
         state_reflow=4;
         //delay 100s then set to peak point
         peak_start_time = millis();
@@ -765,14 +767,14 @@ void Heater::loop_reflow(){
     prev_time = millis();
   }
 
-  if(state_reflow==2 && millis() - soak_start_time > soak_duration){  
-    set_pid_control(peak_point, peak_kp, peak_ki, peak_kd);
+  if(state_reflow==2 && millis() - soak_start_time > SOAK_DURATION){  
+    set_pid_control(PEAK_POINT, PEAK_KP, PEAK_KI, PEAK_KD);
     Serial.println("state_reflow=3");
     state_reflow=3;
     soak_start_time=0;
   }
 
-  if(state_reflow==4 && millis() - peak_start_time > peak_duration){  
+  if(state_reflow==4 && millis() - peak_start_time > PEAK_DURATION){  
     Serial.println("state_reflow=0");
     stop();
     state_reflow=0;
