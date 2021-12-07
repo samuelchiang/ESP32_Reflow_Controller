@@ -1,7 +1,7 @@
 # ESP32_Reflow_Controller
 Use ESP32 to control heater for reflow
 
-![poc](images/poc.png)
+![poc](images/overview.jpg)
 
 ## Features
 - Use ESP32 as a micro controller.
